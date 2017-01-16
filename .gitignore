@@ -1,0 +1,14 @@
+*.pyc
+
+*~
+
+__pycache__
+
+thevenv
+
+db.sqlite3
+
+/static
+
+.DS_Store
+
