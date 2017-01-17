@@ -1,19 +1,15 @@
-<html>
-    <head>
-        <title>Eleni's blog</title>
-    </head>
-    <body>
-        <div>
-            <h1><a href="">Interoperability Blog</a></h1>
-        </div>
+ {% extends 'blog/base.html' %}
 
-         {% for post in posts %}
-             <div>
+ {% block content %}                   
+      {% for post in posts %}
+                        <div class="post">
+                            <div class="date">
+                                <p>published: {{ post.published_date }}</p>
+                            </div>
+                            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+                            <p>{{ post.text|linebreaksbr }}</p>
+                        </div>
+      {% endfor %}
+ {% endblock %}
+                
 
-                 <p>published: {{ post.published_date }}</p>
-                 <h1><a href="">{{ post.title }}</a></h1>
-                 <p>{{ post.text|linebreaksbr }}</p>
-             </div>
-         {% endfor %}
-    </body>
-</html>
