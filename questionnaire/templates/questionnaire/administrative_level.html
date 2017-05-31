@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+Περιγραφή Υπηρεσίας
+{% endblock %}
+
+{% block content %}
+ <h2>Περιγραφή Υπηρεσίας-Επίπεδο διοίκησης</h2>
+ <div class="module">
+    <p>Ερώτηση 5: Ποιο είναι το υποκείμενο επίπεδο διοίκησης της Δημόσιας Υπηρεσίας; </p>
+    <hr>
+ 
+    <ul>
+          <form action="." method="POST" class="form">{{form.as_p}}
+          <p><input type="submit" value="Καταχώρηση"></p>
+            {% csrf_token %}</form>
+    </ul>
+  </div>
+
+{% endblock %}

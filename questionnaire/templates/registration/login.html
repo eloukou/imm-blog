@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Είσοδος{% endblock %}
+
+{% block content %}
+   <h1>Είσοδος</h1>
+   <div class="module">
+    {% if form.errors %}
+        <p>Το όνομα χρήστη και ο κωδικός πρόσβασης δεν ταιριάζουν. Παρακαλώ δοκιμάστε ξανά.</p>
+    {% else %}
+        <p>Παρακαλώ, χρησιμοποιήστε την ακόλουθη φόρμα για εισαγωγή:</p>
+    {% endif %}
+    
+    <div class="login-form">
+        <form action="{% url 'login' %}" method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}" />
+            <p><input type="submit" value="Είσοδος"></p>
+        </form>
+    </div>
+   </div>
+{% endblock %}

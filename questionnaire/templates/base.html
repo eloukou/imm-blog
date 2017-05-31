@@ -1,0 +1,35 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}ΙΜΜ{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        
+    </head>
+    <body>
+    <div id="header">
+        <a href="/">Ερωτηματολόγιο Διαλειτουργικότητας Δημοσίων Υπηρεσιών-ΙΜΜ</a>
+        <ul class="menu">
+        {% if request.user.is_authenticated %}
+           <li><a href="{% url "logout" %}">Έξοδος</a></li>
+        {% else %}
+           <li><a href="{% url "login" %}">Είσοδος</a></li>
+        {% endif %}
+        </ul>
+        
+    </div>
+    <div id="container">
+            {% block content %}
+            {% endblock %}
+    </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+ <script>
+  $(document).ready(function() {
+    {% block domready %}
+    {% endblock %}
+  });
+ </script>
+</body>
+</html>

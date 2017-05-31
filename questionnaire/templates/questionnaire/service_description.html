@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+Περιγραφή Υπηρεσίας
+{% endblock %}
+
+{% block content %}
+ <h2>Περιγραφή Υπηρεσίας</h2>
+ <div class="module">
+    <p>Ερώτηση 2: Μια Δημόσια Υπηρεσία έχει σκοπό το δημόσιο συμφέρον. Ποια είναι η Δημόσια Υπηρεσία που εσείς παρέχετε στους τελικούς χρήστες (πολίτες, επιχειρήσεις ή άλλους δημόσιους οργανισμούς; </p>
+    <hr>
+ 
+    <ul>
+          <form action="." method="POST" class="form">{{form.as_p}}
+          <p><input type="submit" value="Καταχώρηση"></p>
+            {% csrf_token %}</form>
+    </ul>
+  </div>
+
+{% endblock %}
