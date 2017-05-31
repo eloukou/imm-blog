@@ -6,7 +6,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.conf import settings
 
-from multiselectfield import MultiSelectField
+#from multiselectfield import MultiSelectField
 
 from django.utils import timezone
 
