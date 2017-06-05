@@ -49,69 +49,69 @@ from django.contrib.auth.decorators import login_required
     #return render(request, 'questionnaire/service_context.html', {'form':form})
      
 
-def contact_details(request):
+def contactdetails(request):
     if request.method == "POST":
         form = ContactDetailsForm(request.POST)
         if form.is_valid():
             contact_details = form.save(commit=False)   
             contact_details.user = request.user
             contact_details.save() 
-            return redirect('service_description', user=request.user)
+            return redirect('questionnaire:servicedescription')
     else:
         form = ContactDetailsForm()
-    return render(request, 'questionnaire/contact_details.html', {'form':form})
+    return render(request, 'questionnaire/contactdetails.html', {'form':form})
 
-def service_description(request):
+def servicedescription(request):
     if request.method == "POST":
         form = ServiceDescriptionForm(request.POST)
         if form.is_valid():
             service_description = form.save(commit=False)   
             service_description.user = request.user
             service_description.save() 
-            return redirect('service_owner', user=request.user)
+            return redirect('questionnaire:serviceowner')
     else:
         form = ServiceDescriptionForm()
-    return render(request, 'questionnaire/service_description.html', {'form':form})
+    return render(request, 'questionnaire/servicedescription.html', {'form':form})
 
-def service_owner(request):
+def serviceowner(request):
     if request.method == "POST":
         form = ServiceOwnerForm(request.POST)
         if form.is_valid():
             service_owner = form.save(commit=False)   
             service_owner.user = request.user
             service_owner.save() 
-            return redirect('end_user', user=request.user)
+            return redirect('questionnaire:enduser')
     else:
         form = ServiceOwnerForm()
-    return render(request, 'questionnaire/service_owner.html', {'form':form})
+    return render(request, 'questionnaire/serviceowner.html', {'form':form})
 
-def end_user(request):
+def enduser(request):
     if request.method == "POST":
         form = EndUserForm(request.POST)
         if form.is_valid():
             end_user = form.save(commit=False)   
             end_user.user = request.user
             end_user.save() 
-            return redirect('administrative_level', user=request.user)
+            return redirect('questionnaire:administrativelevel')
     else:
         form = EndUserForm()
-    return render(request, 'questionnaire/end_user.html', {'form':form})
+    return render(request, 'questionnaire/enduser.html', {'form':form})
 
-def administrative_level(request):
+def administrativelevel(request):
     if request.method == "POST":
         form = AdministrativeLevelForm(request.POST)
         if form.is_valid():
             administrative_level = form.save(commit=False)   
-            administartive_level.user = request.user
+            administrative_level.user = request.user
             administrative_level.save() 
-            return redirect('service_delivery', user=request.user)
+            return redirect('questionnaire:servicedelivery')
     else:
         form = AdministrativeLevelForm()
-    return render(request, 'questionnaire/administrative_level.html', {'form':form})
+    return render(request, 'questionnaire/administrativelevel.html', {'form':form})
 
    
-def service_delivery(request):
-    return render(request, 'questionnaire/service_delivery.html')
+def servicedelivery(request):
+    return render(request, 'questionnaire/servicedelivery.html')
 
 def index(request):
     area_list = Area.objects.order_by('symbol')[:]

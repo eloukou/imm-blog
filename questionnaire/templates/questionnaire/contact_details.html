@@ -15,6 +15,7 @@
           <form action="." method="POST" class="form">{{form.as_p}}
           <p><input type="submit" value="Καταχώρηση"></p>
             {% csrf_token %}</form>
+          <p><a href="{% url "servicedescription" %}>Επόμενο</a></p>
     </ul>
     {% else %}
       <p>Πατήστε <a href="{% url 'login' %}">εδώ για να εισέλθετε</a></p>

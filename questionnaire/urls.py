@@ -5,11 +5,11 @@ from .import views
 app_name= 'questionnaire'
 urlpatterns = [
     #url(r'^mine/$',  views.area1, name='area1'),
-    url(r'^contact_details/$', views.contact_details, name='contact_details'),
-    url(r'^service_description/$', views.service_description, name='service_description'),
-    url(r'^service_owner/$', views.service_owner, name='service_owner'),
-    url(r'^end_user/$', views.end_user, name='end_user'),
-    url(r'^administrative_level/$', views.administrative_level, name='administrative_level'),
+    url(r'^contactdetails/$', views.contactdetails, name='contactdetails'),
+    url(r'^servicedescription/$', views.servicedescription, name='servicedescription'),
+    url(r'^serviceowner/$', views.serviceowner, name='serviceowner'),
+    url(r'^enduser/$', views.enduser, name='enduser'),
+    url(r'^administrativelevel/$', views.administrativelevel, name='administrativelevel'),
     #url(r'^login/$', views.user_login, name='login'),
     # login / logout urls
     #url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
@@ -17,7 +17,7 @@ urlpatterns = [
    # url(r'^logout-then-login/$', 'django.contrib.auth.views.logout_then_login', name='logout_then_login'),
    # url(r'^$', views.dashboard, name='dashboard'),
    # url(r'^service_context/$', views.service_context, name='service_context'),
-    url(r'^service_delivery/$', views.service_delivery, name='service_delivery'),
+    url(r'^servicedelivery/$', views.servicedelivery, name='servicedelivery'),
     
     #url(r'^$', views.index, name='index'),
     #url(r'^(?P<area_id>[0-9]+)/$', views.detail, name='detail'),

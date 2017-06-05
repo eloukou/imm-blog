@@ -16,12 +16,12 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views #
-from questionnaire.views import contact_details
+from questionnaire.views import contactdetails
 
 urlpatterns = [
     url(r'^accounts/login/$', auth_views.login, name='login'),
     url(r'^accounts/logout/$', auth_views.logout, name='logout'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^questionnaire/', include('questionnaire.urls')),
-    url(r'^$', contact_details, name='contact_details'),
+    url(r'^$', contactdetails, name='contactdetails'),
 ]
