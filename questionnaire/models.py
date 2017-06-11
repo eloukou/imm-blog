@@ -10,6 +10,7 @@ from multiselectfield import MultiSelectField
 
 
 
+
 class Area(models.Model):
     area_text = models.CharField(max_length=100)
     symbol = models.CharField(max_length=2)
