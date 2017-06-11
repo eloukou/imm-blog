@@ -10,7 +10,7 @@
     <h2>Ερώτηση {{ question.number }} : {{ question.question_text }}</h2>
     <p>Επιλεγμένη απάντηση:?</p>
     <p>Βαθμολογία ερώτησης:?</p>
-    {% if question.id < 34  %}
+    {% if question.id < 33  %}
     <p><a href="{% url 'questionnaire:detail' question.id|add:1  %}">Επόμενη Ερώτηση</a>
       {% else %}
      <a href="{% url 'questionnaire:maturity' %}">Αποτελέσματα Ερωτηματολογίου</a>
