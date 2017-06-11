@@ -5,6 +5,28 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Διανομή Υπηρεσίας</h1>
+<div class="module">
+  {% if request.user.is_authenticated %}
+  <h3>Ενότητα Β: Διανομή Υπηρεσίας</h3>
+  <p>
+  <ul>
+    <li>
+    <a href="{% url 'questionnaire:deliverychannel' %}">Κανάλια Διανομής</a>
+    </li>
+    <li>
+    <a href="{% url 'questionnaire:accessibility' %}">Πρόσβαση</a>
+    </li>
+    <li>
+    <a href="{% url 'questionnaire:prefillingform' %}">Προσυμπληρωμένες φόρμες</a>
+    </li>
+  </ul>
+  </p>
+  <p><a href="{% url 'questionnaire:area1' %}">Προηγούμενη Ενότητα</a>
+</br><a href="{% url 'questionnaire:area3' %}">Επόμενη Ενότητα</a></p>
+  {% else %}
+      <p>Πατήστε <a href="{% url 'login' %}">εδώ για να εισέλθετε</a></p>
+      
+    {% endif %}
+</div>
 {% endblock %}
  

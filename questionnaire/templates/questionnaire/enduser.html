@@ -5,14 +5,14 @@
 {% endblock %}
 
 {% block content %}
- <h2>Περιγραφή Υπηρεσίας-Τελικός χρήστης</h2>
+ <h2>Τελικός χρήστης</h2>
  <div class="module">
     <p>Ερώτηση 4: Ποια είναι η βασική ομάδα τελικών χρηστών στην οποία παρέχεται η Δημόσια Υπηρεσία; </p>
     <hr>
  
     <ul>
           <form action="." method="POST" class="form">{{form.as_p}}
-          <p><input type="submit" value="Καταχώρηση"></p>
+          <p><input type="submit" value="Καταχωρηση"></p>
             {% csrf_token %}</form>
     </ul>
   </div>

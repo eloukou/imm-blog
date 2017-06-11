@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+ 
+{% block title %}
+ Πρόσβαση
+{% endblock %}
+
+{% block content %}
+  <h2>Ενότητα Β: Διανομή Υπηρεσίας</h2>
+<div class="module">
+    <p>Ερώτηση 2: Είναι η Δημόσια Υπηρεσία προσβάσιμη μέσω πολλαπλών συσκευών, πλατφόρμων ή προγραμμάτων περιήγησης;</p>
+    <hr>
+ 
+    <ul>
+          <form action="." method="POST" class="form">{{form.as_ul}}
+          <p><input type="submit" value="Καταχωρηση"></p>
+            {% csrf_token %}</form>
+    </ul>
+  </div>
+{% endblock %}
+ 

@@ -3,17 +3,34 @@
 {% block title %}Περιγραφή Υπηρεσίας{% endblock %}
 
 {% block content %}
-<h1> Ερωτηματολόγιο ΙΜΜ </h1>
+<h1> Ενότητα Α: Περιεχόμενο Υπηρεσίας</h1>
 
 <div class="module">
-  <h3>Ενότητα Α: Περιεχόμενο Υπηρεσίας</h3>
+  {% if request.user.is_authenticated %}
   <p>
-    <a href="{% url "contact_details"  %}>Στοιχεία επικοινωνίας</a>
-    <a href="{% url "service_description"  %}>Περιγραφή Υπηρεσίας</a>
-    <a href="{% url "service_owner"  %}>Αρμόδιος Φορέας</a>
-    <a href="{% url "end_user"  %}>Τελικός χρήστης</a>
-    <a href="{% url "administrative_level"  %}>Επίπεδο Διοίκησης</a>
+  <ul>
+    <li>
+    <a href="{% url 'questionnaire:contactdetails' %}">Στοιχεία επικοινωνίας</a>
+    </li>
+    <li>
+    <a href="{% url 'questionnaire:servicedescription' %}">Περιγραφή Υπηρεσίας</a>
+    </li>
+    <li>    
+    <a href="{% url 'questionnaire:serviceowner'  %}">Αρμόδιος Φορέας</a>
+    </li>    
+    <li>
+    <a href="{% url 'questionnaire:enduser'  %}">Τελικός χρήστης</a>
+    </li>    
+    <li>
+    <a href="{% url 'questionnaire:administrativelevel' %}">Επίπεδο Διοίκησης</a>
+    </li>
+  </ul>
   </p>
+  <p><a href="{% url 'questionnaire:area2' %}">Επόμενη Ενότητα</a></p>
+  {% else %}
+      <p>Πατήστε <a href="{% url 'login' %}">εδώ για να εισέλθετε</a></p>
+      
+    {% endif %}
 </div>
 {% endblock %}
 

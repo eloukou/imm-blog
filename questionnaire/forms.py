@@ -1,5 +1,5 @@
 from django import forms
-from .models import ContactDetails, ServiceDescription, ServiceOwner, EndUser, AdministrativeLevel
+from .models import ContactDetails, ServiceDescription, ServiceOwner, EndUser, AdministrativeLevel, DeliveryChannel, AccessibilityOption, Accessibility
 
 #class ServiceContextForm(forms.ModelForm):
 
@@ -36,4 +36,17 @@ class AdministrativeLevelForm(forms.ModelForm):
     class Meta:
         model = AdministrativeLevel
         fields = ('main_administrative_level', 'alternative_administrative_level') 
+
+class DeliveryChannelForm(forms.ModelForm):
+
+    class Meta:
+        model = DeliveryChannel
+        fields = ('traditional_channel', 'digital_channel',)
+
+class AccessibilityForm(forms.ModelForm):
+
+    class Meta:
+        model = Accessibility
+        fields = ('accessibility', 'accessibility_weight')
+
 

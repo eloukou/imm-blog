@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
- <h2>Περιγραφή Υπηρεσίας-Στοιχεία Επικοινωνίας</h2>
+ <h2>Στοιχεία Επικοινωνίας</h2>
  <div class="module">
     {% if request.user.is_authenticated %}
     <p>Ερώτηση 1: Παρακαλώ συμπληρώστε το όνομά σας και στοιχεία επικοινωνίας (τηλέφωνο, αριθμός τηλεφώνου, διεύθυνση ηλεκτρονικού ταχυδρομείου)</p>
@@ -13,9 +13,8 @@
  
     <ul>
           <form action="." method="POST" class="form">{{form.as_p}}
-          <p><input type="submit" value="Καταχώρηση"></p>
+          <p><input type="submit" value="Καταχωρηση"></p>
             {% csrf_token %}</form>
-         
     </ul>
     {% else %}
       <p>Πατήστε <a href="{% url 'login' %}">εδώ για να εισέλθετε</a></p>

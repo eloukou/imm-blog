@@ -21,8 +21,13 @@ admin.site.register(EndUser)
 
 admin.site.register(AdministrativeLevel)
 
+admin.site.register(DeliveryChannel)
 
-#admin.site.register(AccessibilityOption)
+admin.site.register(Accessibility)
+
+#admin.site.register(PrefillingForm)
+
+admin.site.register(AccessibilityOption)
 #admin.site.register(PreFillingFormsOption)
 #admin.site.register(MultillingualismOption)
 #admin.site.register(CrossReferencingOption)

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+ 
+{% block title %}
+ Ενότητα Δ
+{% endblock %}
+
+{% block content %}
+  <h1>Ενότητα Δ: Διαχείριση Υπηρεσιών</h1>
+ <div class="module"> 
+  <ul> 
+  {% for question in area4_question_list %}
+    <li><a href="{% url 'questionnaire:detail' question.id %}">Ερώτηση {{ question.number }} : {{ question.question_text }}</br></li>
+  {% endfor %}
+  </ul>  
+  <p><a href="{% url 'questionnaire:area3' %}">Προηγούμενη Ενότητα</a></p>  
+ </div>
+  
+{% endblock %}

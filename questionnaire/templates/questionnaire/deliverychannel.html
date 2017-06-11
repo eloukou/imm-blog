@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+ 
+{% block title %}
+ Κανάλια Διανομής
+{% endblock %}
+
+{% block content %}
+  <h1>Ενότητα Β: Διανομή Υπηρεσίας</h1>
+<div class="module">
+    <p>Ερώτηση 1: Μέσω ποιων καναλιών διανομής είναι διαθέσιμη η Δημόσια Υπηρεσία στον τελικό χρήστη;(Επιτρέπονται περισσότερες από μια απαντήσεις) </p>
+   
+          <form action="" method="POST" class="form">{{form.as_p}}
+          <p><input type="submit" value="Καταχωρηση"></p>
+            {% csrf_token %}</form>
+   
+  </div>
+{% endblock %}
+ 

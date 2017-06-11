@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+ 
+{% block title %}
+ Ενότητα {{ question.area.symbol }}
+{% endblock %}
+
+{% block content %}
+  <h1>Ενότητα {{ question.area.symbol }}</h1>
+ <div class="module">
+    <h2>Ερώτηση {{ question.number }} : {{ question.question_text }}</h2>
+    <p>Επιλεγμένη απάντηση:?</p>
+    <p>Βαθμολογία ερώτησης:?</p>
+    {% if question.id < 66 %}
+    <p><a href="{% url 'questionnaire:detail' question.id|add:1  %}">Επόμενη Ερώτηση</a>
+      {% else %}
+     <a href="{% url 'questionnaire:maturity' %}">Αποτελέσματα Ερωτηματολογίου</a>
+      {% endif %}</p>
+
+ </div>
+
+
+
+
+{% endblock %}

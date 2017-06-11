@@ -6,7 +6,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.conf import settings
 
-#from multiselectfield import MultiSelectField
+from multiselectfield import MultiSelectField
 
 from django.utils import timezone
 
@@ -59,10 +59,10 @@ class Question(models.Model):
         ordering = ('number',)
 
     def __str__(self):
-        return self.question_text
-
+        return "%s - %s" % (self.question_text, self.weight)
+ 
     @property
-    def maturity_scoring(self): 
+    def maturity_scoring(self):
         q = question.weight * question.answer.score
 
         return q
@@ -70,11 +70,14 @@ class Question(models.Model):
 
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    answer_text = models.CharField(max_length=300)
-    score = models.IntegerField(null=0)
+    answer_text = models.CharField(max_length=200)
+    score = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.answer_text
+        return "%s - %s - %s" % (self.question, self.answer_text, self.score)
+
+   
+  
 
 class ContactDetails(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
@@ -118,49 +121,47 @@ class AdministrativeLevel(models.Model):
         (INTERNATIONAL, 'Διεθνές')
     )
     main_administrative_level = models.CharField(max_length=250, choices=ADMINISTRATIVE_LEVEL_CHOICES, default=LOCAL)
-    alternative_administrative_level = models.CharField(max_length=250, choices=ADMINISTRATIVE_LEVEL_CHOICES,
-                                                        default=LOCAL)
+    alternative_administrative_level = models.CharField(max_length=250, choices=ADMINISTRATIVE_LEVEL_CHOICES, default=LOCAL)
 
     def __str__(self):
         return "%s - %s" % (self.main_administrative_level, self.alternative_administrative_level)
 
+class DeliveryChannel(models.Model):
+    TRADITIONAL_DELIVERY_CHANNELS_LIST = (
+        ('counter_desk', 'Γραφείο/κισέ'),
+        ('postal', 'Ταχυδρομικά'),
+        ('telephone', 'Τηλεφωνικά')
+    )
+    DIGITAL_DELIVERY_CHANNELS_LIST = (
+        ('dedicated_app', 'Ειδική εφαρμογή'),
+        ('website_portal', 'Διαδίκτυο και/ή Διαδικτυακή πύλη'),
+        ('portal', 'Διαδικτυακή πύλη')
+    )
 
-#class ServiceLandscape(models.Model):
- #   LOCAL = 'local'
-  #  REGIONAL = 'regional'
-   # NATIONAL = 'national'
-   # EUROPEAN = 'european'
-   # INTERNATIONAL = 'international'
+    TOTAL_OPTIONS = set(chain(TRADITIONAL_DELIVERY_CHANNELS_LIST, DIGITAL_DELIVERY_CHANNELS_LIST))
 
-  #  ADMINISTRATIVE_LEVEL_CHOICES = (
-   #     (LOCAL, 'Τοπικό(π.χ.πόλη, δήμος)'),
-    #    (REGIONAL, 'Περιφερειακό'),
-     #   (NATIONAL, 'Εθνικό'),
-      #  (EUROPEAN, 'Ευρωπαϊκό'),
-       # (INTERNATIONAL, 'Διεθνές')
-  #  )
-
-   # user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
-   # name = models.CharField(max_length=250)
-   # email = models.EmailField()
-   # cell_phone = models.CharField(max_length=250)
-   # public_service = models.CharField(max_length=250)
-   # public_administration = models.CharField(max_length=250)
-   # end_user = models.CharField(max_length=250)
-   # main_administrative_level = models.CharField(max_length=250, choices=ADMINISTRATIVE_LEVEL_CHOICES, default=LOCAL)
-   # alternative_administrative_level = models.CharField(max_length=250, choices=ADMINISTRATIVE_LEVEL_CHOICES, default=LOCAL)
-
-   # def __str__(self):
-    #    return "%s - %s - %s" % (self.name, self.email, self.cell_phone)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    traditional_channel = MultiSelectField(max_length=150, choices=TRADITIONAL_DELIVERY_CHANNELS_LIST, null=True, blank=True)
+    digital_channel = MultiSelectField(max_length=150, choices=DIGITAL_DELIVERY_CHANNELS_LIST, null=True, blank=True)
+ 
 
 
-#class AccessibilityOption(models.Model):
- #   option_text = models.CharField(max_length=300, null=True, blank=True)
-  #  score = models.IntegerField(null=0)
+class AccessibilityOption(models.Model):
+    option_text = models.CharField(max_length=300, null=True, blank=True)
+    score = models.IntegerField(null=0)
 
-   # def __str__(self):
-    #    return self.option_text
+    def __str__(self):
+        return self.option_text
 
+class Accessibility(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    accessibility = models.ForeignKey(AccessibilityOption)
+    accessibility_weight = models.FloatField()
+
+    def __str__(self):
+        return self.accessibility
 
 #class PreFillingFormsOption(models.Model):
  #   option_text = models.CharField(max_length=300, null=True, blank=True)
@@ -193,31 +194,13 @@ class AdministrativeLevel(models.Model):
 
 
 
-#class ServiceDelivery(models.Model):
- #   TRADITIONAL_DELIVERY_CHANNELS_LIST = (
-  #      ('counter_desk', 'Γραφείο/κισέ'),
-   #     ('postal', 'Ταχυδρομικά'),
-    #    ('telephone', 'Τηλεφωνικά')
-   # )
-   # DIGITAL_DELIVERY_CHANNELS_LIST = (
-    #    ('dedicated_app', 'Ειδική εφαρμογή'),
-     #   ('website_portal', 'Διαδίκτυο και/ή Διαδικτυακή πύλη'),
-      #  ('portal', 'Διαδικτυακή πύλη')
-   # )
 
-    #TOTAL_OPTIONS = set(chain(TRADITIONAL_DELIVERY_CHANNELS_LIST, DIGITAL_DELIVERY_CHANNELS_LIST))
-
-  #  def __str__(self):
-   #     return "from " + self.user.name
-
-
-    #user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
-    #delivery_channels = MultiSelectField(max_length=150, choices=TOTAL_OPTIONS)
 
    # accessibility = models.ForeignKey(AccessibilityOption)
    # accessibility_weight = models.FloatField()
 
     #prefilling_forms = models.ForeignKey(PreFillingFormsOption)
+
     #prefilling_forms_weight = models.FloatField()
 
    # multillingualism = models.ForeignKey(MultillingualismOption)
