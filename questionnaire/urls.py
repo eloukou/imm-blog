@@ -19,6 +19,8 @@ urlpatterns = [
     url(r'^prefillingform/$', views.prefillingform, name='prefillingform'),
    
     url(r'^servicedelivery/$', views.servicedelivery, name='servicedelivery'),
+    url(r'^serviceconsumption/$', views.serviceconsumption, name='serviceconsumption'),
+    url(r'^reuseandsharing/$', views.reuseandsharing, name='reuseandsharing'),
     url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
     url(r'^(?P<pk>[0-9]+)/results/$', views.ResultsView.as_view(), name='results'),
     url(r'^(?P<question_id>[0-9]+)/score/$', views.score, name='score'),

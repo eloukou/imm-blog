@@ -1,13 +1,24 @@
 {% extends "base.html" %}
+{% load staticfiles %}
  
 {% block title %}
  Τέλος Ερωτηματολογίου
 {% endblock %}
 
-{% block content %}
+{% block content %}			
   <h1>Αποτελέσματα ερωτηματολογίου</h1>
- <div class="module"> 
-    
+ <div class="module">
+   {% for area in area_set.all %}
+    <p>area{{ @overall_maturity_scoring %}
+   {% endfor %}  
+   {% for question in question_set.all %}
+     <p>question{{ maturity_scoring }}
+   {% endfor %}
+ <p>Ευχαριστούμε για την συμμετοχή σας στο Ερωτηματολόγιο ΙΜΜ</p>
+ <p>Για περισσότερες πληροφορίες μπορείτε να συμβουλευτείτε τα παρακάτω έγγραφα οδηγιών:</p>
+ <p><a href="{% static 'documentation/IMM_Guideline2017.pdf' %}">IMM Guideline2017</a></p>
+ <p><a href="{% static 'documentation/IMM_Questionnaire2017.pdf' %}">IMM Questionnaire2017</a></p>
+<p><a href="{% static 'documentation/IMM_Recommendations2017.pdf' %}">IMM Recommendations2017</a></p>   
  </div>
   
 {% endblock %}

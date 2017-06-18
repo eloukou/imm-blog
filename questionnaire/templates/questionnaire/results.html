@@ -8,13 +8,19 @@
   <h1>Ενότητα {{ question.area.symbol }}</h1>
  <div class="module">
     <h2>Ερώτηση {{ question.number }} : {{ question.question_text }}</h2>
-    <p>Επιλεγμένη απάντηση:?</p>
-    <p>Βαθμολογία ερώτησης:?</p>
-    {% if question.id < 33  %}
-    <p><a href="{% url 'questionnaire:detail' question.id|add:1  %}">Επόμενη Ερώτηση</a>
-      {% else %}
+    <p>Επιλεγμένη απάντηση: {{ selected_answer.answer_text }}</p>
+    <p>Βαθμολογία ερώτησης: {{ selected_answer_mat }}</p>
+    
+    {% if question.id == 16 %}
+    <p><a href="{% url 'questionnaire:serviceconsumption' %}">Επόμενη Ενότητα-Γ</a>
+    {% elif question.id == 20 %}
+    <p><a href="{% url 'questionnaire:reuseandsharing' %}">Επόμενη Ενότητα-Δ</a>
+    {% elif question.id == 28 %}
      <a href="{% url 'questionnaire:maturity' %}">Αποτελέσματα Ερωτηματολογίου</a>
-      {% endif %}</p>
+    {% else %}
+     <p><a href="{% url 'questionnaire:detail' question.id|add:1  %}">Επόμενη Ερώτηση</a>
+    {% endif %}</p>
+   
 
  </div>
 

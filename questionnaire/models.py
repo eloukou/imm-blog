@@ -25,7 +25,7 @@ class Area(models.Model):
     @property
     def overall_maturity_scoring(self):
 
-        for q in self.area.question_set.all():
+        for q in self.question_set.all():
             overall_maturity_scoring += area.overallweight * area.question.maturity_scoring
             print(q)
         return overall_maturity_scoring
@@ -42,12 +42,12 @@ class Question(models.Model):
 
     def __str__(self):
         return self.question_text
- 
+  
     @property
     def maturity_scoring(self):
         q = question.weight * question.answer.score
 
-        return q
+        return q    
 
 
 class Answer(models.Model):
@@ -89,24 +89,18 @@ class EndUser(models.Model):
         return self.end_user
 
 class AdministrativeLevel(models.Model):
-    LOCAL = 'local'
-    REGIONAL = 'regional'
-    NATIONAL = 'national'
-    EUROPEAN = 'european'
-    INTERNATIONAL = 'international'
 
-    ADMINISTRATIVE_LEVEL_CHOICES = (
-        (LOCAL, 'Τοπικό(π.χ.πόλη, δήμος)'),
-        (REGIONAL, 'Περιφερειακό'),
-        (NATIONAL, 'Εθνικό'),
-        (EUROPEAN, 'Ευρωπαϊκό'),
-        (INTERNATIONAL, 'Διεθνές')
+    ADMINISTRATIVE_LEVEL_LIST = (
+        ('local', 'Τοπικό(π.χ.πόλη, δήμος)'),
+        ('regional', 'Περιφερειακό'),
+        ('national', 'Εθνικό'),
+        ('european', 'Ευρωπαϊκό'),
+        ('international', 'Διεθνές')
     )
-    main_administrative_level = models.CharField(max_length=250, choices=ADMINISTRATIVE_LEVEL_CHOICES, default=LOCAL)
-    alternative_administrative_level = models.CharField(max_length=250, choices=ADMINISTRATIVE_LEVEL_CHOICES, default=LOCAL)
+    administrative_level = MultiSelectField(max_length=100, choices=ADMINISTRATIVE_LEVEL_LIST, null=True, blank=True)
 
     def __str__(self):
-        return "%s - %s" % (self.main_administrative_level, self.alternative_administrative_level)
+        return self.administrative_level
 
 
 class DeliveryChannel(models.Model):
@@ -132,7 +126,7 @@ class DeliveryChannel(models.Model):
 
 class AccessibilityOption(models.Model):
     option_text = models.CharField(max_length=300, null=True, blank=True)
-    score = models.IntegerField(null=0)
+    score = models.FloatField(null=0)
 
     def __str__(self):
         return self.option_text
@@ -141,10 +135,11 @@ class Accessibility(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     accessibility = models.ForeignKey(AccessibilityOption)
-    accessibility_weight = models.FloatField()
+    accessibility_weight = models.FloatField(default=0.4)
+    maturityscoring = models.FloatField(default=1)
 
     def __str__(self):
-        return self.accessibility
+        return "%s - %s" % (self.accessibility, self.maturityscoring)
 
 
 class ConsumedService(models.Model):
@@ -154,22 +149,17 @@ class ConsumedService(models.Model):
     def __str__(self):
         return self.name
 
-class SpecificServicesList(models.Model):
-    service_name = models.CharField(max_length=150, null=True, blank=True)
-    landscaping_service_consumption = models.ForeignKey("LandscapingServiceConsumption", null=True)
-
-    def __str__(self):
-        return self.service_name
 
 
-class LandscapingServiceConsumption(models.Model):
-    GENERIC_SERVICES_LIST = (
+class ServiceConsumption(models.Model):
+    CONSUMED_SERVICES_OPTIONS = (
         ('authentication_service', 'Υπηρεσία Αυθεντικοποίησης'),
         ('e_signature_service', 'Υπηρεσία Ηλεκτρονικών Υπογραφών'),
         ('e_payment_service', 'Υπηρεσία Ηλεκτρονικών Πληρωμών'),
         ('messaging_service', 'Yπηρεσία Μηνυμάτων'),
         ('audio_visual_service', 'Υπηρεσία Οπτικοακουστικών Μέσων'),
         ('data_transformation_service', 'Υπηρεσία Μετασχηματισμού Δεδομένων'),
+        ('data_validation_service', 'Υπηρεσία Επικύρωσης Δεδομένων'),
         ('machine_translation_service', 'Υπηρεσία Αυτόματης Μετάφρασης'),
         ('data_exchange_service', 'Υπηρεσία Ανταλλαγής Δεδομένων'),
         ('business_analytics_service', 'Υπηρεσία Επιχειρηματικής Ανάλυσης'),
@@ -186,21 +176,23 @@ class LandscapingServiceConsumption(models.Model):
         ('hosting_service', 'Υπηρεσία Φιλοξενίας'),
         ('storage_service', 'Υπηρεσία Αποθήκευσης'),
         ('base_registry_information_source', 'Υπηρεσία Πληροφοριών Μητρώου'),
+        ('specific_services', 'Άλλες Εξειδικευμένες Υπηρεσίες'),
     )
-    CONSUMED_SERVICES_OPTIONS = set(GENERIC_SERVICES_LIST)
+    
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
+    service_consumption = MultiSelectField(max_length=250, choices= CONSUMED_SERVICES_OPTIONS, null=True)
 
-    landscaping_service_consumption = MultiSelectField(max_length=250, choices=CONSUMED_SERVICES_OPTIONS, null=True)
-    consumed_service_maturity_level = models.FloatField()
-
-    def __str__(self):
-        return self.id
-
-    def __unicode__(self):
-        return str(self.id)
-
-    @property
-    def consumed_services(self):
-        return self.specificserviceslist_set.all()
+class ReuseAndSharing(models.Model):
+    REUSE_SHARING_OPTIONS = (
+        ('1', 'Ανταλλαγή τεκμηρίωσης για την παροχή σε άλλους (σχετιζόμενους) οργανισμούς πολύτιμων πληροφοριών σχετικά με τις διαδικασίες, την οργάνωση, τη διακυβέρνηση, τις επιλογές τεχνολογίας κλπ.'),
+        ('2', 'Κοινή χρήση πηγαίου κώδικα ή λογισμικού με δυνατότητα λήψης για να δοθεί η δυνατότητα σε άλλες οργανώσεις να δημιουργήσουν αποτελεσματικά τις υπηρεσίες τους.'),
+        ('3', 'Δημιουργία διαθέσιμων υπηρεσιών Web-API για να δοθεί η δυνατότητα σε άλλους οργανισμούς και ιδιώτες  να (επανα-)χρησιμοποιήσουν τη λειτουργικότητα ή / και να αποκτήσουν πρόσβαση σε δεδομένα μέσω διαδικτύου και / ή εφαρμογών για κινητά.'),
+        ('4', 'Παροχή υποστήριξης σε οργανισμούς που αξιοποιούν τους πόρους που παρέχονται.'),
+        ('5', 'Κανένα από τα παραπάνω.'),
+    )
+    
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
+    reuse_and_sharing = MultiSelectField(max_length=250, choices= REUSE_SHARING_OPTIONS, null=True)
 
 
 class Consumption(models.Model):

@@ -11,7 +11,7 @@ from django.views import generic
 from .models import *
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic.edit import FormView
-from .forms import ContactDetailsForm, ServiceDescriptionForm, ServiceOwnerForm, EndUserForm, AdministrativeLevelForm, DeliveryChannelForm, AccessibilityForm
+from .forms import ContactDetailsForm, ServiceDescriptionForm, ServiceOwnerForm, EndUserForm, AdministrativeLevelForm, DeliveryChannelForm, AccessibilityForm, ServiceConsumptionForm, ReuseAndSharingForm
 from django.contrib.auth.decorators import login_required
 
      
@@ -71,7 +71,7 @@ def administrativelevel(request):
             administrative_level = form.save(commit=False)   
             administrative_level.user = request.user
             administrative_level.save() 
-            return redirect('questionnaire:area2')
+            return redirect('../6')
     else:
         form = AdministrativeLevelForm()
     return render(request, 'questionnaire/administrativelevel.html', {'form':form})
@@ -103,6 +103,30 @@ def deliverychannel(request):
         form = DeliveryChannelForm()
     return render(request, 'questionnaire/deliverychannel.html', {'form':form})
 
+def serviceconsumption(request):
+    if request.method == "POST":
+        form = ServiceConsumptionForm(request.POST)
+        if form.is_valid():
+            service_consumption = form.save(commit=False)   
+            service_consumption.save()
+            return redirect('../18')
+    else:
+        form = ServiceConsumptionForm()
+    return render(request, 'questionnaire/serviceconsumption.html', {'form':form})
+
+def reuseandsharing (request):
+    if request.method == "POST":
+        form = ReuseAndSharingForm(request.POST)
+        if form.is_valid():
+            reuse_and_sharing = form.save(commit=False)   
+            reuse_and_sharing.save()
+            return redirect('../22')
+    else:
+        form = ReuseAndSharingForm()
+    return render(request, 'questionnaire/reuseandsharing.html', {'form':form})
+
+
+
 class Area2View(generic.ListView):
     template_name = 'questionnaire/area2.html'
     context_object_name = 'area2_question_list'
@@ -129,7 +153,7 @@ def accessibility(request):
      if request.method == "POST":
         form = AccessibilityForm(request.POST)
         if form.is_valid():
-            accessibility = form.save(commit=False)   
+            accessibility = form.save(commit=False)
             accessibility.save()
             return redirect( 'questionnaire:prefillingform')                
      else:
@@ -154,7 +178,6 @@ class ResultsView(generic.DetailView):
     template_name = 'questionnaire/results.html'
   
 
-
 def score(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
@@ -165,8 +188,12 @@ def score(request, question_id):
             'error_message': "Δεν επιλέξατε απάντηση.",
         })
     else:
+        selected_answer_mat = question.weight*selected_answer.score
+        print(selected_answer_mat)
+        print(selected_answer.answer_text)
+        selected_answer_id = selected_answer.id
         selected_answer.save()
-        return HttpResponseRedirect(reverse('questionnaire:results', args=(question_id,)))
+        return HttpResponseRedirect(reverse('questionnaire:results', args=(question.id,)))
    
         
 

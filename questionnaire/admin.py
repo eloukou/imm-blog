@@ -24,7 +24,8 @@ admin.site.register(Accessibility)
 admin.site.register(AccessibilityOption)
 
 admin.site.register(ConsumedService)
-admin.site.register(SpecificServicesList)
+admin.site.register(ServiceConsumption)
+admin.site.register(ReuseAndSharing)
 admin.site.register(Consumption)
 
 class AnswerInline(admin.TabularInline):
@@ -40,11 +41,4 @@ class QuestionAdmin(admin.ModelAdmin):
     inlines = [AnswerInline]
 admin.site.register(Question, QuestionAdmin)
 
-class SpecificServicesListInline(admin.TabularInline):
-    model = SpecificServicesList
 
-class LandscapingServiceConsumptionAdmin(admin.ModelAdmin):
-    inlines = [
-        SpecificServicesListInline
-    ]
-admin.site.register(LandscapingServiceConsumption, LandscapingServiceConsumptionAdmin)
