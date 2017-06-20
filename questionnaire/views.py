@@ -59,12 +59,12 @@ def enduser(request):
             end_user = form.save(commit=False)   
             end_user.user = request.user
             end_user.save() 
-            return redirect('questionnaire:administrativelevel')
+            return redirect('questionnaire:administrative_level')
     else:
         form = EndUserForm()
     return render(request, 'questionnaire/enduser.html', {'form':form})
 
-def administrativelevel(request):
+def administrative_level(request):
     if request.method == "POST":
         form = AdministrativeLevelForm(request.POST)
         if form.is_valid():
@@ -74,7 +74,7 @@ def administrativelevel(request):
             return redirect('questionnaire:area2')
     else:
         form = AdministrativeLevelForm()
-    return render(request, 'questionnaire/administrativelevel.html', {'form':form})
+    return render(request, 'questionnaire/administrative_level.html', {'form':form})
  
 def area1(request):
     return render(request, 'questionnaire/area1.html')
@@ -103,7 +103,7 @@ def deliverychannel(request):
         form = DeliveryChannelForm()
     return render(request, 'questionnaire/deliverychannel.html', {'form':form})
 
-def serviceconsumption(request):
+def service_consumption(request):
     if request.method == "POST":
         form = ServiceConsumptionForm(request.POST)
         if form.is_valid():
@@ -112,9 +112,9 @@ def serviceconsumption(request):
             return redirect('questionnaire:area3')
     else:
         form = ServiceConsumptionForm()
-    return render(request, 'questionnaire/serviceconsumption.html', {'form':form})
+    return render(request, 'questionnaire/service_consumption.html', {'form':form})
 
-def reuseandsharing (request):
+def reuse_and_sharing (request):
     if request.method == "POST":
         form = ReuseAndSharingForm(request.POST)
         if form.is_valid():
@@ -123,7 +123,7 @@ def reuseandsharing (request):
             return redirect('questionnaire:area4')
     else:
         form = ReuseAndSharingForm()
-    return render(request, 'questionnaire/reuseandsharing.html', {'form':form})
+    return render(request, 'questionnaire/reuse_and_sharing.html', {'form':form})
 
 
 

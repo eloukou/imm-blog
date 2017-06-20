@@ -99,9 +99,7 @@ class AdministrativeLevel(models.Model):
     )
     administrative_level = MultiSelectField(max_length=100, choices=ADMINISTRATIVE_LEVEL_LIST, null=True, blank=True)
 
-    #def __str__(self):
-     #   return self.administrative_level
-
+   
 
 class DeliveryChannel(models.Model):
     TRADITIONAL_DELIVERY_CHANNELS_LIST = (

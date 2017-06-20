@@ -12,9 +12,9 @@
     <p>Βαθμολογία ερώτησης: {{ question__selected_answer.mat }}</p>
     
     {% if question.id == 16 %}
-    <p><a href="{% url 'questionnaire:serviceconsumption' %}">Επόμενη Ενότητα-Γ</a>
+    <p><a href="{% url 'questionnaire:service_consumption' %}">Επόμενη Ενότητα-Γ</a>
     {% elif question.id == 20 %}
-    <p><a href="{% url 'questionnaire:reuseandsharing' %}">Επόμενη Ενότητα-Δ</a>
+    <p><a href="{% url 'questionnaire:reuse_and_sharing' %}">Επόμενη Ενότητα-Δ</a>
     {% elif question.id == 28 %}
      <a href="{% url 'questionnaire:maturity' %}">Αποτελέσματα Ερωτηματολογίου</a>
     {% else %}
