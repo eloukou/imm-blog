@@ -194,6 +194,7 @@ def score(request, question_id):
         selected_answer_id = selected_answer.id
         selected_answer.save()
         return HttpResponseRedirect(reverse('questionnaire:results', args=(question.id,)))
+
    
         
 
