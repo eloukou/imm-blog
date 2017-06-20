@@ -71,7 +71,7 @@ def administrative_level(request):
             administrative_level = form.save(commit=False)   
             administrative_level.user = request.user
             administrative_level.save() 
-            return redirect('questionnaire:area2')
+            return redirect('../6')
     else:
         form = AdministrativeLevelForm()
     return render(request, 'questionnaire/administrative_level.html', {'form':form})
@@ -109,7 +109,7 @@ def service_consumption(request):
         if form.is_valid():
             service_consumption = form.save(commit=False)   
             service_consumption.save()
-            return redirect('questionnaire:area3')
+            return redirect('../18')
     else:
         form = ServiceConsumptionForm()
     return render(request, 'questionnaire/service_consumption.html', {'form':form})
@@ -120,7 +120,7 @@ def reuse_and_sharing (request):
         if form.is_valid():
             reuse_and_sharing = form.save(commit=False)   
             reuse_and_sharing.save()
-            return redirect('questionnaire:area4')
+            return redirect('../22')
     else:
         form = ReuseAndSharingForm()
     return render(request, 'questionnaire/reuse_and_sharing.html', {'form':form})
