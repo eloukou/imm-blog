@@ -71,7 +71,7 @@ def administrativelevel(request):
             administrative_level = form.save(commit=False)   
             administrative_level.user = request.user
             administrative_level.save() 
-            return redirect('../../questionnaire/6')
+            return redirect('http://elenaloukou.pythonanywhere.com/questionnaire/6')
     else:
         form = AdministrativeLevelForm()
     return render(request, 'questionnaire/administrativelevel.html', {'form':form})
@@ -109,7 +109,7 @@ def serviceconsumption(request):
         if form.is_valid():
             service_consumption = form.save(commit=False)   
             service_consumption.save()
-            return redirect('../../questionnaire/18')
+            return redirect('http://elenaloukou.pythonanywhere.com/18')
     else:
         form = ServiceConsumptionForm()
     return render(request, 'questionnaire/serviceconsumption.html', {'form':form})
@@ -120,7 +120,7 @@ def reuseandsharing (request):
         if form.is_valid():
             reuse_and_sharing = form.save(commit=False)   
             reuse_and_sharing.save()
-            return redirect('../../questionnaire/22')
+            return redirect('http://elenaloukou.pythonanywhere.com/22')
     else:
         form = ReuseAndSharingForm()
     return render(request, 'questionnaire/reuseandsharing.html', {'form':form})
