@@ -9,7 +9,7 @@
     </head>
     <body>
     <div id="header">
-        <a href="{% url 'questionnaire:initialize' %}">Ερωτηματολόγιο Διαλειτουργικότητας Ψηφιακών Δημοσίων Υπηρεσιών-ΙΜΜ</a>
+        <a href="/">Ερωτηματολόγιο Διαλειτουργικότητας Ψηφιακών Δημοσίων Υπηρεσιών-ΙΜΜ</a>
         <ul class="menu">
         {% if request.user.is_authenticated %}
            <li><a href="{% url "logout" %}">Έξοδος</a></li>
