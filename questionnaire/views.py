@@ -211,9 +211,9 @@ def score(request, question_id):
             'error_message': "Δεν επιλέξατε απάντηση.",
         })
     else:
-        selected_answer.maturity = selected_answer.score
-        print(selected_answer.maturity)
-        print(selected_answer.answer_text)
+        #selected_answer.maturity = selected_answer.score
+        #print(selected_answer.maturity)
+        #print(selected_answer.answer_text)
         selected_answer.save()
         return HttpResponseRedirect(reverse('questionnaire:results', args=(question.id,)))
 
