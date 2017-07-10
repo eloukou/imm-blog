@@ -7,9 +7,7 @@
 {% block content %}
   <h1>Ενότητα {{ question.area.symbol }}</h1>
  <div class="module">
-    <h2>Ερώτηση {{ question.number }} : {{ question.question_text }}</h2>
-    <p>Επιλεγμένη απάντηση: ?</p>
-    <p>Βαθμολογία ερώτησης: ?</p>
+    <p>Ερώτηση {{ question.number }} : {{ question.question_text|linebreaks }}</p>
     {% if question.id < 66 %}
     <p><a href="{% url 'questionnaire:detail' question.id|add:1  %}">Επόμενη Ερώτηση</a>
       {% else %}

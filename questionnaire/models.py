@@ -9,8 +9,6 @@ from django.conf import settings
 from multiselectfield import MultiSelectField
 
 
-
-
 class Area(models.Model):
     area_text = models.CharField(max_length=100)
     symbol = models.CharField(max_length=2)
@@ -26,14 +24,14 @@ class Area(models.Model):
     def overall_maturity_scoring(self):
 
         for q in self.question_set.all():
-            overall_maturity_scoring += area.overallweight * area.question.maturity_scoring
+            overall_maturity_scoring += area.overallweight * area.question.maturityscore
             print(q)
         return overall_maturity_scoring
 
 
 class Question(models.Model):
     area = models.ForeignKey(Area, on_delete=models.CASCADE)
-    question_text = models.CharField(max_length=300)
+    question_text = models.TextField(blank=True, null=True, max_length=910)
     number = models.IntegerField(null=0)
     weight = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(1.0)])
    
@@ -43,23 +41,25 @@ class Question(models.Model):
     def __str__(self):
         return self.question_text
   
-    @property
-    def maturity_scoring(self):
-        q = question.weight * question.answer.score
+  #  @property
+  #  def maturity_scoring(self):
+  #      q = question.weight * question.answer.score
 
-        return q    
+    #    return q    
 
 
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     answer_text = models.CharField(max_length=200)
-    score = models.IntegerField(default=0)
+    score = models.DecimalField(max_digits=5, decimal_places=3, default=0)
+    maturity = models.DecimalField(max_digits=5, decimal_places=3, default=0)
+   
+    class Meta:
+        ordering = ('question_id',)
 
     def __str__(self):
-        return self.answer_text
-
-   
-  
+        return "%s - %s - %s" % (self.answer_text, self.score, self.maturity)
+       
 
 class ContactDetails(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
@@ -71,7 +71,7 @@ class ContactDetails(models.Model):
         return "%s - %s - %s" % (self.name, self.email, self.cell_phone)
 
 class ServiceDescription(models.Model):
-     service_description = models.CharField(max_length=250)
+     service_description = models.TextField(max_length=250)
 
      def __str__(self):
         return self.service_description
@@ -180,6 +180,7 @@ class ServiceConsumption(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
     service_consumption = MultiSelectField(max_length=250, choices= CONSUMED_SERVICES_OPTIONS, null=True)
 
+
 class ReuseAndSharing(models.Model):
     REUSE_SHARING_OPTIONS = (
         ('1', 'Ανταλλαγή τεκμηρίωσης για την παροχή σε άλλους (σχετιζόμενους) οργανισμούς πολύτιμων πληροφοριών σχετικά με τις διαδικασίες, την οργάνωση, τη διακυβέρνηση, τις επιλογές τεχνολογίας κλπ.'),
@@ -190,8 +191,29 @@ class ReuseAndSharing(models.Model):
     )
     
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
-    reuse_and_sharing = MultiSelectField(max_length=250, choices= REUSE_SHARING_OPTIONS, null=True)
+    reuse_and_sharing = MultiSelectField(max_length=250, choices= REUSE_SHARING_OPTIONS, max_choices=4, null=True)
+    maturity = models.DecimalField(max_digits=5, decimal_places=3, default=0)
 
+    def get_choices_default(self):
+        return self.get_choices(include_blank=False)
+
+    def validate(self, value, model_instance):
+        arr_choices = self.get_choices_selected(self.get_choices_default())
+        for opt_select in value:
+            if (int(opt_select) not in arr_choices):  # the int() here is for comparing with integer choices
+                raise exceptions.ValidationError(self.error_messages['invalid_choice'] % value)  
+        return
+
+    def get_choices_selected(self, arr_choices=''):
+        if not arr_choices:
+            return False
+        list = []
+        for choice_selected in arr_choices:
+            list.append(choice_selected[0])
+        return list 
+
+ 
+        
 
 class Consumption(models.Model):
     service_consumed_today = models.CharField(max_length=120, null=False, blank=False)

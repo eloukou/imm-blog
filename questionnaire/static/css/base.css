@@ -187,58 +187,18 @@ input[type=submit]:hover {
     background:#35ace8;
 }
 
-ul#course-modules {
-    list-style:none;
-    overflow:auto;
+table{
+    border-collapse: collapse;
 }
 
-ul#course-modules textarea {
-    width:600px;
-    height:120px;
-}
 
-ul#course-modules li {
-    padding:20px;
-    overflow:auto;
+th, td{
+    padding:10px;
+    border: 0px;
 }
-
-ul#course-modules li:nth-child(even) {
-    background:#efefef;
-}
-
-ul#course-modules li:hover {
-    background:#ccc;
-    cursor:move;
-}
-
-#module-contents div {
-    padding:20px 20px 4px 20px;
-    border:1px solid #ccc;
-    background:#fff;
-    overflow:auto;
-}
-
-#module-contents div:hover {
-    cursor:move;
-}
-
-#module-contents a {
-    float:left;
-}
-
-#module-contents form {
-    margin:0;
-    padding:0;
-    float:left;
-}
-
-#module-contents input[type="submit"] {
-    width:auto;
-    background:none;
-    color:#35ace8;
-    margin:0 0 10px 10px;
-    padding:0;
-    text-transform:none;
+th {
+    background-color: #35ace8;
+    color: white;
 }
 
 .course-info {

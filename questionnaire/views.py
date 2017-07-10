@@ -13,6 +13,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.generic.edit import FormView
 from .forms import ContactDetailsForm, ServiceDescriptionForm, ServiceOwnerForm, EndUserForm, AdministrativeLevelForm, DeliveryChannelForm, AccessibilityForm, ServiceConsumptionForm, ReuseAndSharingForm
 from django.contrib.auth.decorators import login_required
+import math
 
      
 
@@ -80,8 +81,18 @@ def area1(request):
     return render(request, 'questionnaire/area1.html')
 
 def maturity(request):
-    return render(request, 'questionnaire/maturity.html')
+    area2maturity = sum(answer.maturity for answer in Answer.objects.all()[1:42])*2
+    area3maturity = sum(answer.maturity for answer in Answer.objects.all()[43:55])*5
+    area4maturity = float(sum(answer.maturity for answer in Answer.objects.all()[56:]))*3.333
+    totalmaturity = sum(answer.maturity for answer in Answer.objects.all())
+    return render(request, 'questionnaire/maturity.html', {'totalmaturity':totalmaturity, 'area2maturity':area2maturity, 'area3maturity':area3maturity, 'area4maturity':area4maturity})
 
+def initialize(request):
+    for answer in Answer.objects.all():
+        answer.maturity = 0
+        answer.save()
+    reuse_and_sharing.maturity = 0
+    return redirect( 'questionnaire:contactdetails')
    
 def servicedelivery(request):
     return render(request, 'questionnaire/servicedelivery.html')
@@ -118,7 +129,18 @@ def reuse_and_sharing (request):
     if request.method == "POST":
         form = ReuseAndSharingForm(request.POST)
         if form.is_valid():
-            reuse_and_sharing = form.save(commit=False)   
+            reuse_and_sharing = form.save(commit=False)
+            q = len(reuse_and_sharing.get_choices_selected('form')) 
+            #q = len(request.POST.getlist('checks'))
+            if q == 1 : reuse_and_sharing.maturity=0.075
+            elif q == 2 : reuse_and_sharing.maturity=0.15
+            elif q == 3 : reuse_and_sharing.maturity=0.225
+            elif q == 4 : reuse_and_sharing.maturity=0.3 
+            else: q == 0
+            print(q)
+            print(reuse_and_sharing.maturity)
+            for answer in Answer.objects.all()[56:56]:
+                answer.maturity = reuse_and_sharing.maturity
             reuse_and_sharing.save()
             return redirect('../22')
     else:
@@ -147,6 +169,7 @@ class Area4View(generic.ListView):
 
     def get_queryset(self):
         return Question.objects.filter(area_id=4) 
+
 
 
 def accessibility(request):
@@ -188,16 +211,14 @@ def score(request, question_id):
             'error_message': "Δεν επιλέξατε απάντηση.",
         })
     else:
-        selected_answer_mat = question.weight*selected_answer.score
-        print(selected_answer_mat)
+        selected_answer.maturity = selected_answer.score
+        print(selected_answer.maturity)
         print(selected_answer.answer_text)
-        selected_answer_id = selected_answer.id
         selected_answer.save()
         return HttpResponseRedirect(reverse('questionnaire:results', args=(question.id,)))
 
    
         
-
 def place(request):
     return HttpResponse(area_text)
 

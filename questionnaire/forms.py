@@ -1,5 +1,6 @@
 from django import forms
 from .models import ContactDetails, ServiceDescription, ServiceOwner, EndUser, AdministrativeLevel, DeliveryChannel, AccessibilityOption, Accessibility, ServiceConsumption, ReuseAndSharing
+from multiselectfield import MultiSelectFormField
 
 #class ServiceContextForm(forms.ModelForm):
 
@@ -55,11 +56,11 @@ class ServiceConsumptionForm(forms.ModelForm):
         model = ServiceConsumption
         fields = ('service_consumption',)
 
-class ReuseAndSharingForm(forms.ModelForm):
 
+class ReuseAndSharingForm(forms.ModelForm):
+    
     class Meta:
         model = ReuseAndSharing
-        fields = ('reuse_and_sharing',)
-
+        fields = ('reuse_and_sharing',) 
 
 

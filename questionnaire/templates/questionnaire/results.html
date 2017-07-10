@@ -7,12 +7,12 @@
 {% block content %}
   <h1>Ενότητα {{ question.area.symbol }}</h1>
  <div class="module">
-    <br>
-    <br>
+      {% if answer.is_checked %}
+    <p>{{ answer.answer_text }}, Ωριμότητα:{{ answer.score }}</p> 
+      {% endif %}
+    <br> 
     {% if question.id == 16 %}
     <p>Συνεχίστε στην <a href="{% url 'questionnaire:service_consumption' %}">Επόμενη Ενότητα (Γ)</a>
-    {% elif question.id == 20 %}
-    <p>Συνεχίστε στην <a href="{% url 'questionnaire:reuse_and_sharing' %}">Επόμενη Ενότητα (Δ)</a>
     {% elif question.id == 28 %}
      <a href="{% url 'questionnaire:maturity' %}">Αποτελέσματα Ερωτηματολογίου</a>
     {% else %}
