@@ -20,13 +20,6 @@ class Area(models.Model):
     def __str__(self):
         return self.area_text
 
-    @property
-    def overall_maturity_scoring(self):
-
-        for q in self.question_set.all():
-            overall_maturity_scoring += area.overallweight * area.question.maturityscore
-            print(q)
-        return overall_maturity_scoring
 
 
 class Question(models.Model):
@@ -40,12 +33,7 @@ class Question(models.Model):
 
     def __str__(self):
         return self.question_text
-  
-  #  @property
-  #  def maturity_scoring(self):
-  #      q = question.weight * question.answer.score
-
-    #    return q    
+     
 
 
 class Answer(models.Model):

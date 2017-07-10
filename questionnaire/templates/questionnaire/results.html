@@ -7,9 +7,6 @@
 {% block content %}
   <h1>Ενότητα {{ question.area.symbol }}</h1>
  <div class="module">
-      {% if answer.is_checked %}
-    <p>{{ answer.answer_text }}, Ωριμότητα:{{ answer.score }}</p> 
-      {% endif %}
     <br> 
     {% if question.id == 16 %}
     <p>Συνεχίστε στην <a href="{% url 'questionnaire:service_consumption' %}">Επόμενη Ενότητα (Γ)</a>
@@ -20,8 +17,5 @@
     {% endif %}</p> 
 
  </div>
-
-
-
 
 {% endblock %}
