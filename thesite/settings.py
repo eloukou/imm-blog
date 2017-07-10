@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'multiselectfield',
     'mathfilters',
+    'phonenumber_field',
     'questionnaire.apps.QuestionnaireConfig',
 ]
 

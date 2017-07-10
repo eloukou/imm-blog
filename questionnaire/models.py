@@ -7,6 +7,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.conf import settings
 
 from multiselectfield import MultiSelectField
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Area(models.Model):
@@ -53,7 +54,7 @@ class ContactDetails(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
     name = models.CharField(max_length=250)
     email = models.EmailField()
-    cell_phone = models.CharField(max_length=12)
+    cell_phone = PhoneNumberField(blank=True)
 
     def __str__(self):
         return "%s - %s - %s" % (self.name, self.email, self.cell_phone)
