@@ -38,6 +38,9 @@ class AdministrativeLevelForm(forms.ModelForm):
         model = AdministrativeLevel
         fields = ('administrative_level',) 
 
+
+
+
 class DeliveryChannelForm(forms.ModelForm):
 
     class Meta:

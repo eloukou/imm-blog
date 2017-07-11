@@ -10,7 +10,7 @@
     {% if request.user.is_authenticated %}
     <h3><b>Ερώτηση 1:<br> Παρακαλώ συμπληρώστε το όνομά σας και στοιχεία επικοινωνίας (αριθμός τηλεφώνου π.χ.'+30123456789', διεύθυνση ηλεκτρονικού ταχυδρομείου)</b></h3>
  
-    <ul>
+   <ul>
           <form action="." method="POST" class="form">{{form.as_p}}
           <p><input type="submit" value="Καταχωρηση"></p>
             {% csrf_token %}</form>

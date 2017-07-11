@@ -86,7 +86,7 @@ class AdministrativeLevel(models.Model):
         ('european', 'Ευρωπαϊκό'),
         ('international', 'Διεθνές')
     )
-    administrative_level = MultiSelectField(max_length=100, choices=ADMINISTRATIVE_LEVEL_LIST, null=True, blank=True)
+    administrative_level = MultiSelectField(max_length=50, choices=ADMINISTRATIVE_LEVEL_LIST, null=True, blank=True)
 
    
 

@@ -6,12 +6,13 @@
 
 {% block content %}
  <h1>Ενότητα Α: Περιγραφή Υπηρεσίας</h1>
- <div class="module">
+ <div class="module1">
     <h3><b>Ερώτηση 5: <br>Σε ποιο διοικητικό επίπεδο παρέχεται η ψηφιακή δημόσια υπηρεσία (επιτρέπονται περισσότερες από μια απαντήσεις); </b></h3>
     
-          <form action="." method="POST" class="form">{{form.as_p}}
-          <p><input type="submit" value="Καταχωρηση"></p>
-            {% csrf_token %}</form>
+      <form action="." method="POST" class="form">{{form.as_p}}
+      <br><br><br><br><br><br>
+      <p><input type="submit" value="Καταχωρηση"></p>
+        {% csrf_token %}</form>
   </div>
 
 {% endblock %}

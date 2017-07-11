@@ -1,6 +1,6 @@
 
 # -*- coding: utf-8 -*-
-
+import os
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import loader
@@ -105,7 +105,6 @@ def deliverychannel(request):
             traditional_channel.save()
             digital_channel = form.save(commit=False)   
             digital_channel.save()
-
             if digital_channel.form == NULL:
                 return render( 'questionnaire/accessibity.html')                
             else:
@@ -215,7 +214,12 @@ def score(request, question_id):
         print(selected_answer.maturity)
         print(selected_answer.answer_text)
         selected_answer.save()
-        return HttpResponseRedirect(reverse('questionnaire:results', args=(question.id,)))
+        if question.id == 16: 
+            return redirect('questionnaire:service_consumption')
+        elif question.id == 28:
+            return redirect('questionnaire:maturity')
+        else:
+            return HttpResponseRedirect(reverse('questionnaire:detail', args=(question.id+1,)))
 
    
         
