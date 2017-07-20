@@ -11,17 +11,14 @@ admin.site.register(ContactDetails)
 admin.site.register(ServiceDescription)
 
 admin.site.register(ServiceOwner)
+
+admin.site.register(ServiceOwnerOption)
  
 admin.site.register(EndUser)
 
 admin.site.register(AdministrativeLevel)
 
 admin.site.register(DeliveryChannel)
-
-admin.site.register(Accessibility)
-
-
-admin.site.register(AccessibilityOption)
 
 admin.site.register(ConsumedService)
 admin.site.register(ServiceConsumption)
@@ -36,7 +33,8 @@ class QuestionAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Ενότητα: ', {'fields': ['area']}),
         ('Ερώτηση: ', {'fields': ['number','question_text']}),
-        ('Βάρος: ', {'fields': ['weight']})
+        ('Βάρος: ', {'fields': ['weight']}),
+        ('Ποσοστό: ', {'fields': ['percentage']})
     ]
     inlines = [AnswerInline]
 admin.site.register(Question, QuestionAdmin)

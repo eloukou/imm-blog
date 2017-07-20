@@ -10,7 +10,7 @@
 {% block content %}			
   
  <div class="module">
-   <table border=1px>
+   <table class="table1">
    <tr><th colspan='2'>Έρευνα ΙΜΜ - Αποτελέσματα Ωριμότητας</th><tr>
    <tr><td align='left' width=180px>Διανομή Υπηρεσίας</td><td align='center'>{{ area2maturity }}</td></tr>
    <tr><td align='left'>Κατανάλωση Υπηρεσιών</td><td align='center'>{{ area3maturity }}</td></tr>
@@ -18,11 +18,11 @@
    <tr><td align='left'>Συνολική Ωριμότητα</td><td align='center'>{{ totalmaturity|floatformat:'3' }}</td></tr>
    </table>
 <br>
-   <table border=1px solid black;>
+   <table class="table1">
    <tr><th align='left' width=160px colspan='2'>Συνολική Ωριμότητα</th><th>Το επίπεδο ωριμότητας ισούται με {{ totalmaturity|floatformat:'0' }}</th></hr>
     <tr><td align='left' width=160px>Επίπεδο Ωριμότητας</td><td width=160px>Στάδιο Ωριμότητας</td><td width=460px align='center'>Ερμηνεία</td></tr>
    {% ifequal '1'  totalmaturity|floatformat:'0'  %}
-<tr bgcolor=#FFC300 height=70px><td align='center'>1</td><td align='center'>Επί τούτω</td><td >Ανεπαρκής διαλειτουργικότητα - Η ψηφιακή δημόσια υπηρεσία δεν μπορεί να θεωρηθεί διαλειτουργική</td></tr>
+<tr bgcolor=#FFC300 height=70px style="border: 0px"><td align='center'>1</td><td align='center'>Επί τούτω</td><td >Ανεπαρκής διαλειτουργικότητα - Η ψηφιακή δημόσια υπηρεσία δεν μπορεί να θεωρηθεί διαλειτουργική</td></tr>
    {% endifequal %}
     {% ifequal '2'  totalmaturity|floatformat:'0'  %}
 <tr bgcolor= #FFFF00 height=70px><td align='center'>2</td><td align='center'>Ευκαιριακό</td><td>Ασθενής διαλειτουργικότητα - Η ψηφιακή δημόσια υπηρεσία εφαρμόζει μερικά στοιχεία βέλτιστων πρακτικών διαλειτουργικότητας</td></tr>
@@ -36,13 +36,13 @@
    {% ifequal '5' totalmaturity|floatformat:'0'  %}
 <tr bgcolor=#EE82EE height=70px><td align='center'>5</td><td align='center' >Αδιάλειπτο</td><td>Κορυφαία πρακτική διαλειτουργικότητας - η ψηφιακή δημόσια υπηρεσία αποτελεί παράδειγμα πρακτικής εφαρμογής της διαλειτουργικότητας για τους άλλους</td></tr>
    {% endifequal %}
-</table>
-  <p>Για περισσότερες πληροφορίες μπορείτε να συμβουλευτείτε τα παρακάτω έγγραφα οδηγιών:</p>
-  <table>
-  <tr><td><a href="{% static 'documentation/Ερωτηματολόγιο ΙΜΜ 2017.pdf' %}">Ερωτηματολόγιο ΙΜΜ 2017</a></td>
- <td><a href="{% static 'documentation/Κατευθυντήρια οδηγία ΙΜΜ 2017.pdf' %}">Κατευθυντήρια οδηγία ΙΜΜ 2017</a></td>
- <td><a href="{% static 'documentation/Συστάσεις ΙΜΜ 2017.pdf' %}">Συστάσεις ΙΜΜ 2017</a></td></tr></table>
-
+</table><br>
+  <p>Για περισσότερες πληροφορίες μπορείτε να συμβουλευτείτε τους παρακάτω πίνακες με οδηγίες<br> για την βελτίωση του επιπέδου της διαλειτουργικότητας της υπηρεσίας σας:
+<table class="table1" >
+<tr><td style="border: 0px"><a href="{% url 'questionnaire:recommendations1' %}"><u>Συστάσεις για την Ενότητα Β  </u></a></td> 
+<td style="border: 0px"><a href="{% url 'questionnaire:recommendations2' %}"><u>Συστάσεις για την Ενότητα Γ  </u></a></td>
+<td style="border: 0px"><a href="{% url 'questionnaire:recommendations3' %}"><u>Συστάσεις για την Ενότητα Δ</u></a></td></tr>
+</table></p>
 <p>Ευχαριστούμε για την συμμετοχή σας στο Ερωτηματολόγιο ΙΜΜ. Αν θέλετε να επαναλάβετε το ερωτηματολόγιο πατήστε<a href="{% url 'questionnaire:initialize' %}"> εδώ</a></p>
  </div>
   

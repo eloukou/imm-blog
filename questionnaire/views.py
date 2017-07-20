@@ -11,7 +11,7 @@ from django.views import generic
 from .models import *
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic.edit import FormView
-from .forms import ContactDetailsForm, ServiceDescriptionForm, ServiceOwnerForm, EndUserForm, AdministrativeLevelForm, DeliveryChannelForm, AccessibilityForm, ServiceConsumptionForm, ReuseAndSharingForm
+from .forms import ContactDetailsForm, ServiceDescriptionForm, ServiceOwnerForm, EndUserForm, AdministrativeLevelForm, DeliveryChannelForm, ServiceConsumptionForm, ReuseAndSharingForm
 from django.contrib.auth.decorators import login_required
 import math
 
@@ -80,12 +80,47 @@ def administrative_level(request):
 def area1(request):
     return render(request, 'questionnaire/area1.html')
 
+def recommendations1(request):
+    b1maturity = sum(answer.maturity for answer in Answer.objects.all()[0:4])
+    b2maturity = sum(answer.maturity for answer in Answer.objects.all()[4:8])
+    b3maturity = sum(answer.maturity for answer in Answer.objects.all()[8:12])
+    b4maturity = sum(answer.maturity for answer in Answer.objects.all()[12:17])
+    b5maturity = sum(answer.maturity for answer in Answer.objects.all()[17:21])
+    b6maturity = sum(answer.maturity for answer in Answer.objects.all()[21:25])
+    b7maturity = sum(answer.maturity for answer in Answer.objects.all()[25:27])
+    b8maturity = sum(answer.maturity for answer in Answer.objects.all()[27:30])
+    b9maturity = sum(answer.maturity for answer in Answer.objects.all()[30:34])
+    b10maturity = sum(answer.maturity for answer in Answer.objects.all()[34:39])
+    b11maturity = sum(answer.maturity for answer in Answer.objects.all()[39:42])
+    print(b1maturity, b2maturity, b3maturity, b4maturity, b5maturity, b6maturity, b7maturity, b8maturity, b9maturity, b10maturity, b11maturity)
+    return render(request, 'questionnaire/recommendations1.html', {'b1maturity':b1maturity, 'b2maturity':b2maturity, 'b3maturity':b3maturity, 'b4maturity':b4maturity, 'b5maturity':b5maturity, 'b6maturity':b6maturity, 'b7maturity':b7maturity, 'b8maturity':b8maturity, 'b9maturity':b9maturity, 'b10maturity':b10maturity, 'b11maturity':b11maturity,})
+
+def recommendations2(request):
+    c2maturity = sum(answer.maturity for answer in Answer.objects.all()[42:47])
+    c3maturity = sum(answer.maturity for answer in Answer.objects.all()[47:50])
+    c4maturity = sum(answer.maturity for answer in Answer.objects.all()[50:54])
+    print(c2maturity, c3maturity, c4maturity)
+    return render(request, 'questionnaire/recommendations2.html', {'c2maturity':c2maturity, 'c3maturity':c3maturity, 'c4maturity':c4maturity,})
+
+def recommendations3(request):
+    
+    d1maturity = sum(answer.maturity for answer in Answer.objects.all()[54:59])
+    d2maturity = sum(answer.maturity for answer in Answer.objects.all()[59:62])
+    d3maturity = sum(answer.maturity for answer in Answer.objects.all()[62:65])
+    d4maturity = sum(answer.maturity for answer in Answer.objects.all()[65:69])
+    d5maturity = sum(answer.maturity for answer in Answer.objects.all()[69:71])
+    d6maturity = sum(answer.maturity for answer in Answer.objects.all()[71:75])
+    d7maturity = sum(answer.maturity for answer in Answer.objects.all()[75:77])
+    d8maturity = sum(answer.maturity for answer in Answer.objects.all()[77:80])
+    print(d1maturity, d2maturity, d3maturity, d4maturity, d5maturity, d6maturity, d7maturity, d8maturity)
+    return render(request, 'questionnaire/recommendations3.html', {'d1maturity':d1maturity, 'd2maturity':d2maturity, 'd3maturity':d3maturity, 'd4maturity':d4maturity, 'd5maturity':d5maturity, 'd6maturity':d6maturity, 'd7maturity':d7maturity, 'd8maturity':d8maturity,})
+
 def maturity(request):
-    area2maturity = sum(answer.maturity for answer in Answer.objects.all()[1:42])*2
-    area3maturity = sum(answer.maturity for answer in Answer.objects.all()[43:55])*5
-    area4maturity = float(sum(answer.maturity for answer in Answer.objects.all()[56:]))*3.333
+    area2maturity = sum(answer.maturity for answer in Answer.objects.all()[0:42])*2
+    area3maturity = sum(answer.maturity for answer in Answer.objects.all()[42:54])*5
+    area4maturity = float(sum(answer.maturity for answer in Answer.objects.all()[54:80]))*3.333
     totalmaturity = sum(answer.maturity for answer in Answer.objects.all())
-    return render(request, 'questionnaire/maturity.html', {'totalmaturity':totalmaturity, 'area2maturity':area2maturity, 'area3maturity':area3maturity, 'area4maturity':area4maturity})
+    return render(request, 'questionnaire/maturity.html', {'totalmaturity':totalmaturity, 'area2maturity':area2maturity, 'area3maturity':area3maturity, 'area4maturity':area4maturity,})
 
 def initialize(request):
     for answer in Answer.objects.all():
@@ -130,7 +165,6 @@ def reuse_and_sharing (request):
         if form.is_valid():
             reuse_and_sharing = form.save(commit=False)
             q = len(reuse_and_sharing.get_choices_selected('form')) 
-            #q = len(request.POST.getlist('checks'))
             if q == 1 : reuse_and_sharing.maturity=0.075
             elif q == 2 : reuse_and_sharing.maturity=0.15
             elif q == 3 : reuse_and_sharing.maturity=0.225
@@ -170,17 +204,6 @@ class Area4View(generic.ListView):
         return Question.objects.filter(area_id=4) 
 
 
-
-def accessibility(request):
-     if request.method == "POST":
-        form = AccessibilityForm(request.POST)
-        if form.is_valid():
-            accessibility = form.save(commit=False)
-            accessibility.save()
-            return redirect( 'questionnaire:prefillingform')                
-     else:
-        form = AccessibilityForm()
-     return render(request, 'questionnaire/accessibility.html', {'form':form})
 
 def prefillingform(request):
     return render(request, 'questionnaire/prefillingform.html')

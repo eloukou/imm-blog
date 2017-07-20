@@ -187,18 +187,34 @@ input[type=submit]:hover {
     background:#35ace8;
 }
 
-table{
+.table1 {
     border-collapse: collapse;
 }
 
 
-th, td{
+.table1 th, tr, td {
     padding:10px;
     border: 0px;
 }
-th {
+.table1 th {
     background-color: #35ace8;
     color: white;
+    border: 0px;
+}
+
+.table2 {
+    border-collapse: collapse;
+    border: 1px solid black;
+    font-size: 15px;
+}
+.table2 tr, td {
+    border: 1px solid black;
+    padding:2px;
+}
+.table2 th {
+    background-color: #35ace8;
+    color: white;
+    height: 30px;
 }
 
 .course-info {
@@ -256,6 +272,8 @@ input[type=radio]:checked + label:before {
 .module1 {
     padding:10px 20px;
     float:left;
+}
+
 }
 input[type=checkbox] {
 }

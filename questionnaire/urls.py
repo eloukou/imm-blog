@@ -14,8 +14,10 @@ urlpatterns = [
     url(r'^area2/$', views.Area2View.as_view(), name='area2'),
     url(r'^area3/$', views.Area3View.as_view(), name='area3'),
     url(r'^area4/$', views.Area4View.as_view(), name='area4'),
+    url(r'^recommendations1/$', views.recommendations1, name='recommendations1'),
+    url(r'^recommendations2/$', views.recommendations2, name='recommendations2'),
+    url(r'^recommendations3/$', views.recommendations3, name='recommendations3'),
     url(r'^maturity/$', views.maturity, name='maturity'),
-    url(r'^accessibility/$', views.accessibility, name='accessibility'),
     url(r'^prefillingform/$', views.prefillingform, name='prefillingform'),
    
     url(r'^servicedelivery/$', views.servicedelivery, name='servicedelivery'),

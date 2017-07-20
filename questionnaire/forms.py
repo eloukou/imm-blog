@@ -1,5 +1,5 @@
 from django import forms
-from .models import ContactDetails, ServiceDescription, ServiceOwner, EndUser, AdministrativeLevel, DeliveryChannel, AccessibilityOption, Accessibility, ServiceConsumption, ReuseAndSharing
+from .models import ContactDetails, ServiceDescription, ServiceOwner, EndUser, AdministrativeLevel, DeliveryChannel, ServiceConsumption, ReuseAndSharing
 from multiselectfield import MultiSelectFormField
 
 #class ServiceContextForm(forms.ModelForm):
@@ -20,11 +20,17 @@ class ServiceDescriptionForm(forms.ModelForm):
         model = ServiceDescription
         fields = ('service_description',)
  
+#class ServiceOwnerForm(forms.ModelForm):
+
+  #  class Meta:
+   #     model = ServiceOwner
+    #    fields = ('public_administration',) 
+
 class ServiceOwnerForm(forms.ModelForm):
 
     class Meta:
         model = ServiceOwner
-        fields = ('public_administration',) 
+        fields = ('service_owner',) 
 
 class EndUserForm(forms.ModelForm):
 
@@ -47,11 +53,7 @@ class DeliveryChannelForm(forms.ModelForm):
         model = DeliveryChannel
         fields = ('traditional_channel', 'digital_channel',)
 
-class AccessibilityForm(forms.ModelForm):
 
-    class Meta:
-        model = Accessibility
-        fields = ('question', 'accessibility', 'maturityscoring',)
 
 class ServiceConsumptionForm(forms.ModelForm):
 

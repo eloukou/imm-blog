@@ -28,6 +28,7 @@ class Question(models.Model):
     question_text = models.TextField(blank=True, null=True, max_length=910)
     number = models.IntegerField(null=0)
     weight = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(1.0)])
+    percentage = models.IntegerField(default=0)
    
     class Meta:
         ordering = ('number',)
@@ -65,11 +66,11 @@ class ServiceDescription(models.Model):
      def __str__(self):
         return self.service_description
 
-class ServiceOwner(models.Model):
-    public_administration = models.CharField(max_length=250)
+#class ServiceOwner(models.Model):
+ #   public_administration = models.CharField(max_length=250)
 
-    def __str__(self):
-        return self.public_administration
+ #   def __str__(self):
+  #      return self.public_administration
 
 class EndUser(models.Model):
     end_user = models.CharField(max_length=250)
@@ -111,22 +112,16 @@ class DeliveryChannel(models.Model):
  
 
 
-class AccessibilityOption(models.Model):
+class ServiceOwnerOption(models.Model):
     option_text = models.CharField(max_length=300, null=True, blank=True)
-    score = models.FloatField(null=0)
 
     def __str__(self):
         return self.option_text
 
-class Accessibility(models.Model):
+class ServiceOwner(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    accessibility = models.ForeignKey(AccessibilityOption)
-    accessibility_weight = models.FloatField(default=0.4)
-    maturityscoring = models.FloatField(default=1)
+    service_owner = models.ForeignKey(ServiceOwnerOption, null=True, blank=True)
 
-    def __str__(self):
-        return "%s - %s" % (self.accessibility, self.maturityscoring)
 
 
 class ConsumedService(models.Model):
@@ -183,24 +178,7 @@ class ReuseAndSharing(models.Model):
     reuse_and_sharing = MultiSelectField(max_length=250, choices= REUSE_SHARING_OPTIONS, max_choices=4, null=True)
     maturity = models.DecimalField(max_digits=5, decimal_places=3, default=0)
 
-    def get_choices_default(self):
-        return self.get_choices(include_blank=False)
-
-    def validate(self, value, model_instance):
-        arr_choices = self.get_choices_selected(self.get_choices_default())
-        for opt_select in value:
-            if (int(opt_select) not in arr_choices):  # the int() here is for comparing with integer choices
-                raise exceptions.ValidationError(self.error_messages['invalid_choice'] % value)  
-        return
-
-    def get_choices_selected(self, arr_choices=''):
-        if not arr_choices:
-            return False
-        list = []
-        for choice_selected in arr_choices:
-            list.append(choice_selected[0])
-        return list 
-
+   
  
         
 
