@@ -80,6 +80,9 @@ def administrative_level(request):
 def area1(request):
     return render(request, 'questionnaire/area1.html')
 
+def imm(request):
+    return render(request, 'questionnaire/imm.html')
+
 def recommendations1(request):
     b1maturity = sum(answer.maturity for answer in Answer.objects.all()[0:4])
     b2maturity = sum(answer.maturity for answer in Answer.objects.all()[4:8])

@@ -10,6 +10,7 @@
     </head>
     <body>
     <div id="header">
+        <img src="{% static 'images/imm_0.png' %}" style="vertical-align:middle; float:left;clear:left;width:30px;height:30px;">&nbsp;
         <a href="{% url 'questionnaire:initialize' %}">Ερωτηματολόγιο Διαλειτουργικότητας Ψηφιακών Δημοσίων Υπηρεσιών-ΙΜΜ</a>
         <ul class="menu">
         {% if request.user.is_authenticated %}

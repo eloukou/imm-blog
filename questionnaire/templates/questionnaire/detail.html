@@ -8,20 +8,20 @@
   <h1>Ενότητα {{ question.area.symbol }}: {{question.area.area_text}}</h1>
  <div class="module">				
     {% if question.percentage == 100 %}
-   Πρόοδος 100%<table class="table1" border=1px align=left width=600px height=25px>
+   Πρόοδος 100%<table class="table1" border=1px align=left width=400px height=25px>
     <td bgcolor=#40ff00  style="width: 100%" ></td>
     </table>
    {% else %}
-   Πρόοδος {{question.percentage}}%<table class="table1" border=1px align=left width=600px height=25px >
+   Πρόοδος {{question.percentage}}%<table class="table1" border=1px align=left width=400px height=25px >
     <td bgcolor=#40ff00  style="width: {{question.percentage}}%"></td>
     <td  style="width:(100-{{question.percentage}})%"></td>
     </table>
     {% endif %}
     
     {% if question.id == 21 %}
-    <h3><b>Ερώτηση {{ question.id }} από 28:<br>{{ question.question_text|linebreaks}}</b></h3><br>
+    <p>Ερώτηση {{ question.id }} από 28:<br><br>{{ question.question_text|linebreaksbr}}</p>
    {% else %}
-   <h3><b>Ερώτηση {{ question.id }} από 28:<br><br>{{ question.area.symbol }}{{question.number}}. {{ question.question_text }}</b></h3><br>
+   <p>Ερώτηση {{ question.id }} από 28:<br><br>{{ question.area.symbol }}{{question.number}}. {{ question.question_text }}</p><br>
    {% endif %}
    {% if error_message %}<p><strong>{{ error_message}}</strong></p>{% endif %}
    <form action="{% url 'questionnaire:score' question.id %}" method="post">

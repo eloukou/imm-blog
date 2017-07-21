@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^enduser/$', views.enduser, name='enduser'),
     url(r'^administrative_level/$', views.administrative_level, name='administrative_level'),
     url(r'^area1/$', views.area1, name='area1'),
+    url(r'^imm/$', views.imm, name='imm'),
     url(r'^deliverychannel/$', views.deliverychannel, name='deliverychannel'),
     url(r'^area2/$', views.Area2View.as_view(), name='area2'),
     url(r'^area3/$', views.Area3View.as_view(), name='area3'),
